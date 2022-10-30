@@ -1,8 +1,8 @@
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import { Button } from '@mui/material';
-import { Link } from 'react-router-dom';
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import { Button } from "@mui/material";
+import { Link } from "react-router-dom";
 
 const NavBar = () => {
   return (
@@ -10,9 +10,9 @@ const NavBar = () => {
       <Toolbar style={{ display: `flex`, justifyContent: `space-between` }}>
         <Button component={Link} to="/">
           <Typography
-            variant="h6"
+            variant="h5"
             color="white"
-            sx={{ flexGrow: 1, textTransform: `none` }}
+            sx={{ flexGrow: 1, textTransform: `none`, fontWeight: "bold" }}
           >
             CSIC (Crypto Summer is Coming)
           </Typography>
@@ -23,7 +23,7 @@ const NavBar = () => {
               color="white"
               sx={{ flexGrow: 1, textTransform: `none` }}
             >
-              NFT 받기
+              Get NFT
             </Typography>
           </Button>
           <Button component={Link} to="/get-token">
@@ -31,7 +31,7 @@ const NavBar = () => {
               color="white"
               sx={{ flexGrow: 1, textTransform: `none` }}
             >
-              토큰 교환
+              Get Token
             </Typography>
           </Button>
         </Toolbar>

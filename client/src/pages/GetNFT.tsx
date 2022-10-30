@@ -1,141 +1,151 @@
-import React, { useEffect, useState } from "react";
-import { providers, Wallet, utils, Contract, ethers, } from "ethers";
-import ERC721 from '../utils/abi/erc721.json';
+import { useCallback, useEffect, useState } from "react";
+import { ethers } from "ethers";
+import ERC721 from "../utils/abi/erc721.json";
 
-import CSIC_LOGO from '../assets/temp/temp_CSIC_Logo.png'
+import CSIC_LOGO from "../assets/temp/temp_CSIC_Logo.png";
 
-const BigNumber = require("bignumber.js");
 const smartContract = "0x64100403B2dbDB624a225c44D712086D67f01Ec3";
 
-let isExecuted = false;
-
 const GetNFT = () => {
-
   // NFT 가격
-  const price = 10;
+  const price = 1;
 
-  const [balance, setBalance] = useState("0");
-  const [balanceForNFT, setBalanceForNFT] = useState("0");
-  const [walletAddress, setWalletAddress] = useState("");
+  // const [provider, setProvider] = useState({});
+  const [signer, setSigner] = useState({});
+  // const [walletAddress, setWalletAddress] = useState("");
+  const [currentBalance, setCurrentBalance] = useState(0);
+  // const [chainId, setChainId] = useState(undefined);
+  const [isConnected, setIsConnected] = useState(false);
 
-  // 연결된 지갑의 주소
-  const getWalletAddress = async () => {
+  // MetaMask 데이터 조회
+  const getMetamaskData = useCallback(async () => {
+    const _provider = await getProvider();
+    const _signer = await getSigner(_provider);
+    await getWalletData(_signer);
+  }, []);
+
+  // provider
+  const getProvider = async () => {
+    const provider = await new ethers.providers.Web3Provider(window.ethereum);
+    // setProvider(provider);
+
+    return provider;
+  };
+
+  // signer
+  const getSigner = async (provider: any) => {
+    await provider.send("eth_requestAccounts", []);
+    const signer = provider.getSigner();
+    setSigner(signer);
+
+    return signer;
+  };
+
+  // 지갑 정보 조회
+  const getWalletData = async (signer: any) => {
+    const result = await Promise.all([
+      signer.getAddress(),
+      signer.getBalance(),
+      signer.getChainId(),
+    ]);
+    // setWalletAddress(result[0]);
+    setCurrentBalance(Number(ethers.utils.formatEther(result[1])));
+    // setChainId(result[2]);
+  };
+
+  // 지갑 연결
+  const connectWallet = useCallback(async () => {
     try {
-        const provider = new providers.Web3Provider(window.ethereum); 
-        // 메타마스크에 선택된 지갑으로 트랜잭션 서명을 함
-        const signer = provider.getSigner(); 
-        const walletAddress = await signer.getAddress();
+      if (typeof window.ethereum !== "undefined") {
+        await getMetamaskData();
 
-        setWalletAddress(walletAddress);
-        getBalance(walletAddress);
-        getBalanceForNFT();
+        setIsConnected(true);
+      } else {
+        alert("please install MetaMask");
+      }
+    } catch (error) {
+      console.log(error);
     }
-    catch (err) {
-      alert(err);
-    }
-  }
-
-
-  // 연결된 지갑의 잔고 조회
-  const getBalance = async (address: string) => {
-    try {
-        const provider = new providers.Web3Provider(window.ethereum);
-        let balance = await provider.getBalance(address);
-        let convertedBalance = ethers.utils.formatEther(balance);
-        setBalance(convertedBalance);
-    }
-    catch (err) {
-      alert(err);
-    }
-  }
-
-  // 연결된 지갑의 NFT 보유량 조회
-  const getBalanceForNFT = async () => {
-    try {
-        const provider = new providers.Web3Provider(window.ethereum);
-        const signer = provider.getSigner(); // 메타마스크에 선택된 지갑으로 트랜잭션 서명을 함
-        const address = await signer.getAddress();
-        const erc721Contract = new ethers.Contract(smartContract, ERC721.abi, signer);
-        let result = await erc721Contract.balanceOf(address);
-
-        setBalanceForNFT(result.toString());
-    }
-    catch (err) {
-      alert(err);
-    }
-  }
+  }, [getMetamaskData]);
 
   // NFT 민팅
-  const mintHandler = async () => {
+  const mintHandler = async (_signer: any) => {
     try {
-        const provider = new providers.Web3Provider(window.ethereum);
-        const signer = provider.getSigner(); // 메타마스크에 선택된 지갑으로 트랜잭션 서명을 함
-        const walletAddress = await signer.getAddress();    
-        const erc721Contract = new ethers.Contract(smartContract, ERC721.abi, signer);    
+      const erc721Contract = new ethers.Contract(
+        smartContract,
+        ERC721.abi,
+        _signer
+      );
 
-        let tokenURI = "www.naver.com";
+      const tokenURI = "www.naver.com";
 
-        let result = await erc721Contract.mintNFT(tokenURI, {
-          value: ethers.utils.parseEther((price).toString())
-        });
-    }
-    catch (err) {
+      await erc721Contract.mintNFT(tokenURI, {
+        value: ethers.utils.parseEther(price.toString()),
+      });
+    } catch (err) {
       alert(err);
     }
-  }
-
-  const walletConnectHandler = async () => {
-    try {
-        isExecuted = true;
-        if(typeof window.ethereum !== 'undefined') await window.ethereum.send('eth_requestAccounts');
-      }
-    catch (err) {
-      alert(err);
-    }
-  }
+  };
 
   useEffect(() => {
-    if(isExecuted === false) walletConnectHandler();
-  }, []);
+    if (isConnected === false) {
+      connectWallet();
+    }
+  }, [isConnected, connectWallet]);
 
   return (
     <>
-    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center"}}>
-      {/* <div style={{ fontSize: "40px", fontWeight: "bold"}}>
-        Your Balance
-      </div>
-      <div style={{ fontSize: "30px"}}>
-        {Number(balance).toFixed(2)} KLAY | {balanceForNFT} NFT
-      </div> */}
-
-      <div style={{ fontSize: "80px", fontWeight: "bold" }}>
-        {price} KLAY FOR 1 NFT
-      </div>
-      
-
-      <div style={{ width: "350px", height: "350px"}}>
-        <img style={{width: "100%", height: "100%"}} title="CSIC Logo" src={CSIC_LOGO}/>
-      </div>
-
-      {/* <div style={{ fontSize: "40px", fontWeight: "bold" }}>
-        10 KLAY For 1 NFT
-      </div> */}
-
-      {/* <div 
-        style={{ fontSize: "20px", border: "2px solid blue", cursor: "pointer"}}
-        onClick={() => mintHandler()}
+      <div
+        style={{
+          height: "100vh",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
       >
-        MINTING
-      </div> */}
-      <button
-        style={{ border: "none", borderRadius: "20px", backgroundColor: "orange", color: "white", width: "300px", height: "120px", fontSize: "45px", cursor: "pointer"}}
-        onClick={() => mintHandler()}
-      >
-        MINTING
-      </button>
-    </div>
+        <div
+          style={{ marginTop: "20px", fontSize: "20px", fontWeight: "bold" }}
+        >
+          Your Balance
+        </div>
+        <div style={{ fontSize: "30px", fontWeight: "bold" }}>
+          {currentBalance.toFixed(2)} KLAY
+        </div>
+
+        <div style={{ fontSize: "15px", marginTop: "20px" }}>
+          <span style={{ fontWeight: "bold" }}>{price} KLAY </span>
+          <span>for </span>
+          <span style={{ fontWeight: "bold" }}>1 NFT </span>
+          <span>(Excluding gas fees)</span>
+        </div>
+
+        <div style={{ width: "350px", height: "350px", marginTop: "20px" }}>
+          <img
+            style={{ width: "100%", height: "100%" }}
+            title="CSIC Logo"
+            src={CSIC_LOGO}
+            alt="CSIC Logo"
+          />
+        </div>
+
+        <button
+          style={{
+            border: "none",
+            borderRadius: "10px",
+            backgroundColor: "orange",
+            color: "white",
+            fontSize: "30px",
+            cursor: "pointer",
+            marginTop: "20px",
+            padding: "20px",
+          }}
+          onClick={() => mintHandler(signer)}
+        >
+          MINTING
+        </button>
+      </div>
     </>
-  )
+  );
 };
 
 export default GetNFT;
