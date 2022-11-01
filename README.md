@@ -7,7 +7,7 @@
 </div>
 
 <div>
-    <h2 style="text-decoration:none"><b>[ Intoduce ]</b></h2>
+    <div style="font-size:25px"><b>[ Intoduce ]</b></div>
     <ul>
         <li>프로젝트 이름 : Crypto Summer Is Coming...</li>
         <li>프로젝트 목적 : </li>
@@ -29,7 +29,7 @@
 
 <div>
     <br />
-    <h2><b>[ Member ]</b></h2>
+    <div style="font-size:25px"><b>[ Member ]</b></div>
     <ul>
         <li>팀장 : 황수민 <a href="https://github.com/smhwang0109"><img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=GitHub&logoColor=white"/></a></li>
         <li>팀원 : 김기쁨 <a href="https://github.com/joykim93"><img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=GitHub&logoColor=white"/></a></li>
@@ -40,7 +40,7 @@
 
 <div>
     <hr>
-    <h2><b>[ Workflow ]</b></h2>
+    <div style="font-size:25px"><b>[ Workflow ]</b></div>
     <div>
         <h3><b>1. User가 Minting Page에서 Klaytn으로 NFT(CSIC) 구매.</b></h3>
         <img src="./image/workflow_1.png" width="600px" />
@@ -66,7 +66,7 @@
 
 <div>
     <hr>
-    <h2><b>[ Function Description ]</b></h2>
+    <div style="font-size:25px"><b>[ Function Description ]</b></div>
     <ul>
         <li><b>Explorer</b></li>
         <ul>
@@ -97,7 +97,7 @@
 
 <div>
     <hr />
-    <h2><b>[ Screenshot ]</b></h2>
+    <div style="font-size:25px"><b>[ Screenshot ]</b></div>
     <div>
         <h3><b>■ NFT(CSIC) Minting & Publish To User</b></h3>
         <div align="center">
