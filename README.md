@@ -1,5 +1,5 @@
 
-<div style="text-align:center">
+<div align="center">
     <h1><b>CSIS : Crypto Summer Is Coming ...</b></h1>
     <img src="./image/CSIC.png" width="500px"/>
     <br />
@@ -7,7 +7,7 @@
 </div>
 
 <div>
-    <h2><b>[ Intoduce ]</b></h2>
+    <h2 text-decoration="none"><b>[ Intoduce ]</b></h2>
     <ul>
         <li>프로젝트 이름 : Crypto Summer Is Coming...</li>
         <li>프로젝트 목적 : </li>
@@ -100,7 +100,7 @@
     <h2><b>[ Screenshot ]</b></h2>
     <div>
         <h3><b>■ NFT(CSIC) Minting & Publish To User</b></h3>
-        <div style="text-align:center">
+        <div align="center">
             <img src="./image/screenshot_1.png" width="300px">
             <img src="./image/screenshot_2.png" width="252px">
         </div>
@@ -108,10 +108,10 @@
     </dib>
     <div>
         <h3><b>■ Token(BSUN) Minting & Publish To User</b></h3>
-        <div style="text-align:center">    
+        <div align="center">    
             <img src="./image/screenshot_3.png" width="400px">
         </div>
-        <div style="text-align:center">
+        <div align="center">
             <img src="./image/screenshot_4.png" width="400px">
         </div>
         <br /><br />
