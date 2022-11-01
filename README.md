@@ -29,7 +29,7 @@
 
 <div>
     <br />
-    <div><b>[ Member ]</b></div>
+    <div><font size="5"><b>[ Member ]</b></font></div>
     <ul>
         <li>팀장 : 황수민 <a href="https://github.com/smhwang0109"><img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=GitHub&logoColor=white"/></a></li>
         <li>팀원 : 김기쁨 <a href="https://github.com/joykim93"><img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=GitHub&logoColor=white"/></a></li>
@@ -40,7 +40,7 @@
 
 <div>
     <hr>
-    <div><b>[ Workflow ]</b></div>
+    <div><font size="5"><b>[ Workflow ]</b></font></div>
     <div>
         <h3><b>1. User가 Minting Page에서 Klaytn으로 NFT(CSIC) 구매.</b></h3>
         <img src="./image/workflow_1.png" width="600px" />
@@ -66,7 +66,7 @@
 
 <div>
     <hr>
-    <div><b>[ Function Description ]</b></div>
+    <div><font size="5"><b>[ Function Description ]</b></font></div>
     <ul>
         <li><b>Explorer</b></li>
         <ul>
@@ -97,7 +97,7 @@
 
 <div>
     <hr />
-    <div><b>[ Screenshot ]</b></div>
+    <div><font size="5"><b>[ Screenshot ]</b></font></div>
     <div>
         <h3><b>■ NFT(CSIC) Minting & Publish To User</b></h3>
         <div align="center">
