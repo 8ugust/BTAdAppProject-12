@@ -7,7 +7,7 @@
 </div>
 
 <div>
-    <h2 text-decoration="none"><b>[ Intoduce ]</b></h2>
+    <h2 style="text-decoration:none"><b>[ Intoduce ]</b></h2>
     <ul>
         <li>프로젝트 이름 : Crypto Summer Is Coming...</li>
         <li>프로젝트 목적 : </li>
